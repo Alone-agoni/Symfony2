@@ -1,69 +1,137 @@
-Symfony Standard Edition
-========================
+## Symfony2学习笔记
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+### 第一天
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+#### 安装Symfony2
 
-What's inside?
---------------
+```$xslt
+ composer create-project symfony/framework-standard-edition my_project_name "2.8.*"
+```
 
-The Symfony Standard Edition is configured with the following defaults:
+#### 运行Symfony2
 
-  * An AppBundle you can use to start coding;
+```$xslt
+ cd my_project_name/
+ php bin/console server:run
+```
+然后, 打开浏览器并且使用 http://localhost:8000 访问Symfony欢迎界面!
 
-  * Twig as the only configured template engine;
+#### 检查Symfony应用程序配置和设置
 
-  * Doctrine ORM/DBAL;
+然后, 打开浏览器并且使用 http://localhost:8000/config.php 访问。
 
-  * Swiftmailer;
+如果您有任何文件权限错误或看到白色屏幕，那么请阅读[设置或修改文件权限](http://symfony.com/doc/current/setup/file_permissions.html)以获得更多信息。
 
-  * Annotations enabled for everything.
+#### 更新Symfony应用程序
 
-It comes pre-configured with the following bundles:
+```$xslt
+ cd my_project_name/
+ composer update
+```
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+#### 安装一个现有Symfony应用程序
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
+```$xslt
+ cd projects/
+ git clone ...
+ 
+ cd my_project_name/
+ composer install
+```
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
+### 第二天 
 
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
+#### 创建一个控制器文件（LuckyController.php）
 
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
+```$xslt
+# src/AppBundle/Controller/LuckyController.php
+<?php
+namespace AppBundle\Controller;
 
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
+class LuckyController extends Controller
+{
+   
+}
+```
 
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
+#### 创建一个返回字符串的方法
 
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
+```$xslt
+# src/AppBundle/Controller/LuckyController.php
+/**
+ * @Route("/lucky", name="lucky_index")
+ */
+public function indexAction()
+{
+    return new Response("<h1>Lucky Index!</h1>");
+}
+访问地址：http://127.0.0.1:8000/lucky
+```
 
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
+#### 创建一个返回json数据的方法
 
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
+```$xslt
+# src/AppBundle/Controller/LuckyController.php
+/**
+ * @Route("/lucky/json", name="lucky_json")
+ */
+public function jsonAction()
+{
+    $data = [
+        'name' => 'Wei.Ding',
+        'age'  => 25,
+        'sex'  => 'Man'
+    ];
+    return new JsonResponse($data);
+}
+访问地址：http://127.0.0.1:8000/lucky/json
+```
 
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
+#### 创建一个渲染模板的方法
 
-Enjoy!
+```$xslt
+# src/AppBundle/Controller/LuckyController.php
+/**
+ * @Route("/lucky/number", name="lucky_number")
+ */
+public function numberAction()
+{
+    $number         = mt_rand(1, 100);
+    $data['number'] = $number;
+    return $this->render('lucky/number.html.twig', $data);
+}
 
-[1]:  https://symfony.com/doc/2.8/setup.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/2.8/doctrine.html
-[8]:  https://symfony.com/doc/2.8/templating.html
-[9]:  https://symfony.com/doc/2.8/security.html
-[10]: https://symfony.com/doc/2.8/email.html
-[11]: https://symfony.com/doc/2.8/logging.html
-[12]: https://symfony.com/doc/2.8/assetic/asset_management.html
-[13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
+# app/Resources/views/lucky/number.html.twig
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+Number:{{ number }}
+
+{% endblock %}
+
+访问地址：http://127.0.0.1:8000/lucky/number
+```
+
+#### 创建一个带参数的方法
+
+```$xslt
+/**
+ * @Route("/lucky/count/{count}", name="lucky_count")
+ */
+public function countAction($count)
+{
+    $number = array();
+    for ($i = 0; $i < $count; $i++) {
+        $number[] = mt_rand(1, 100);
+    }
+    $numberList = implode(',', $number);
+    return new Response("NumberList:{$numberList}");
+}
+
+访问地址：http://127.0.0.1:8000/lucky/count/5
+```
