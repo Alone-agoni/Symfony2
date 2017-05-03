@@ -1,0 +1,90 @@
+{% extends 'BookBundle::base.html.twig' %}
+
+{% block body %}
+    <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Book</a></li>
+            <li class="active">列表</li>
+        </ol>
+    </div>
+    <div class="col-lg-12">
+        <a href="{{ path('book_create') }}" class="btn btn-success">新增</a>
+        <a href="{{ path('book_index') }}" class="btn btn-success">刷新</a>
+        <div style="height: 20px;"></div>
+    </div>
+    <div class="col-lg-12">
+        <table class="table table-bordered">
+            <thead>
+            <tr class="active">
+                <th>&nbsp;ID</th>
+                <th>&nbsp;User Name</th>
+                <th>&nbsp;Age</th>
+                <th>&nbsp;Sex</th>
+                <th>&nbsp;Mobile</th>
+                <th>&nbsp;Email</th>
+                <th>&nbsp;Address</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>&nbsp;1</td>
+                <td>&nbsp;Alone</td>
+                <td>&nbsp;19</td>
+                <td>&nbsp;Man</td>
+                <td>&nbsp;17718403844</td>
+                <td>&nbsp;827400818@qq.com</td>
+                <td>&nbsp;Bei Jin</td>
+                <td>&nbsp;<a href="" class="btn btn-sm btn-primary">Edit</a> <a href=""
+                                                                                class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;1</td>
+                <td>&nbsp;Alone</td>
+                <td>&nbsp;19</td>
+                <td>&nbsp;Man</td>
+                <td>&nbsp;17718403844</td>
+                <td>&nbsp;827400818@qq.com</td>
+                <td>&nbsp;Bei Jin</td>
+                <td>&nbsp;<a href="" class="btn btn-sm btn-primary">Edit</a> <a href=""
+                                                                                class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;1</td>
+                <td>&nbsp;Alone</td>
+                <td>&nbsp;19</td>
+                <td>&nbsp;Man</td>
+                <td>&nbsp;17718403844</td>
+                <td>&nbsp;827400818@qq.com</td>
+                <td>&nbsp;Bei Jin</td>
+                <td>&nbsp;<a href="" class="btn btn-sm btn-primary">Edit</a> <a href=""
+                                                                                class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-12">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+{% endblock %}

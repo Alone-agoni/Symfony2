@@ -107,6 +107,7 @@ public function numberAction()
     $number         = mt_rand(1, 100);
     $data['number'] = $number;
     return $this->render('lucky/number.html.twig', $data);
+    //return $this->render('AppBundle:Default:index.html.twig');
 }
 
 # app/Resources/views/lucky/number.html.twig
@@ -230,4 +231,44 @@ public function generateUrlAction()
 <a href="{{ path('blog_index', {'page': '2'}) }}">Go to blog index</a>
 
 <a href="{{ url('blog_index', {'page': '2'}) }}">Go to blog index</a>
+```
+
+### 第四天
+
+#### 尝试用Symfony写一个通讯录（简单的增删改查）
+
+首先，我们需要创建一个BookBundle用。
+```$xslt
+php app/console generate:bundle
+
+在显示Bundle name:的时候输入BookBundle
+```
+
+创建好BookBundle后，打开BookBundle/Controller/DefaultController.php文件
+
+将indexAction的路由改为/book,打开浏览器，输入http://127.0.0.1:8000/book，就可以看到hello word!了
+
+接下来开始编写静态页面
+
+静态页面编写好了后使用模板继承
+
+继承语法
+```$xslt
+#base.html.twig
+Header
+{% block body %}{% endblock %}
+Footer
+
+#a.html.twig
+{% extends 'base.html.twig' %}
+{% block body %}a.html{% endblock %}
+
+#b.html.twig
+{% extends 'base.html.twig' %}
+{% block body %}b.html{% endblock %}
+```
+
+```$xslt
+{% extends 'base.html.twig' %} 这种写法是继承app/Resources/views/base.html.twig
+{% extends 'BookBundle::base.html.twig' %} 这种写法是继承src/BookBundle/Resources/views/base.html.twig
 ```
